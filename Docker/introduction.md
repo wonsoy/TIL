@@ -16,13 +16,29 @@ Dockerfile에서는 code를 짜듯이 infrastructure를 구축한다(infrastruct
 
 이 Image를 필요할 때 필요한 만큼 필요한 곳에서 run 하는 것을 Docker Container를 실행한다고 한다.
 
-### Docker Image란
+
+
+### Docker Image
 
 Infrastructure as concept를 도커에서 구현한 것이 Docker image이다.
 
 
 
 Docker image는 코드, 라이브러리, 환경변수, configuration file 등 애플리케이션이 돌아가는 데 필요한 모든 것들을 담고 있다.
+
+
+
+### Docker Engine
+
+도커의 가장 핵심 소프트웨어이다. 컨테이너를 실행, 관리한다. 
+
+![https://stefanjarina.gitbooks.io/docker/content/assets/engine-components-flow.png](https://stefanjarina.gitbooks.io/docker/content/assets/engine-components-flow.png)
+
+https://stefanjarina.gitbooks.io/docker/content/basics/architecture.html
+
+
+
+개발자는 CLI를 사용해서 명령을 내리고 REST API는 deamon에게 작업을 요청한다. 이 과정을 거쳐 daemon은 컨테이너, 이미지, 네트워크, 데이터볼륨 등을 다룬다. 
 
 
 
@@ -36,5 +52,5 @@ hello-world라는 이미지를 docker에서 run하라.
 
 
 
-만약 로컬에 없는 이미지를 입력하면 도커는 Docker Hub에 접속해서 이미 누군가가 만들어놓은 이미지를 pull한다.
+만약 로컬에 없는 이미지를 입력하면 도커는 Docker Hub에 접속해서 이미 누군가가 만들어놓은 이미지를 pull한다. 
 
