@@ -42,7 +42,9 @@ https://stefanjarina.gitbooks.io/docker/content/basics/architecture.html
 
 
 
-### 실행
+### 실습
+
+
 
 ```
 docker run hello-world
@@ -53,4 +55,16 @@ hello-world라는 이미지를 docker에서 run하라.
 
 
 만약 로컬에 없는 이미지를 입력하면 도커는 Docker Hub에 접속해서 이미 누군가가 만들어놓은 이미지를 pull한다. 
+
+
+
+ubuntu 이미지를 실행하고 컨테이너를 만든 후 그 안에서 bash를 실행해보고 컨테이너와 이미지를 지우는 과정은 아래와 같다. 
+
+```
+docker run ubuntu
+docker container run -it -d --rm --name ubuntuos ubuntu:latest
+docker exec -it ubuntuos /bin/bash
+docker container stop ubuntuos
+docker image rm -f <image id>
+```
 
