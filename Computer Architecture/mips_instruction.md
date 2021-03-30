@@ -34,7 +34,7 @@ MIPS구조에서 레지스터의 크기는 32 bit이다. MIPS구조에서는 32�
 
 
 
-![unnamed](C:\Users\user\Desktop\unnamed.JPG)
+![http://db.cs.duke.edu/courses/cps104/fall98/lectures/week8-l1/img005.gif](http://db.cs.duke.edu/courses/cps104/fall98/lectures/week8-l1/img005.gif)
 
 http://db.cs.duke.edu/courses/cps104/fall98/lectures/week8-l1/sld005.htm
 
