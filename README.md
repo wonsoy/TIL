@@ -1,35 +1,37 @@
-# TIL
+- # TIL
 
-복습하는 습관을 들이기 위해 그날그날 새로 알게된 것을 자유롭게 기록합니다.
+  복습하는 습관을 들이기 위해 그날그날 새로 알게된 것을 자유롭게 기록합니다.
 
+  
 
+  ### Computer Architecture
 
-### Computer Architecture
+  - [mips_assembly_language](https://github.com/wonsoy/TIL/blob/master/Computer%20Architecture/mips_assembly_language.md)
+  - [mips_instruction](https://github.com/wonsoy/TIL/blob/master/Computer%20Architecture/mips_instruction.md)
+  - [mips_procedure](https://github.com/wonsoy/TIL/blob/master/Computer%20Architecture/mips_procedure.md)
 
-- [mips_assembly_language](https://github.com/wonsoy/TIL/blob/master/Computer%20Architecture/mips_assembly_language.md)
-- [mips_instruction](https://github.com/wonsoy/TIL/blob/master/Computer%20Architecture/mips_instruction.md)
-- [mips_procedure](https://github.com/wonsoy/TIL/blob/master/Computer%20Architecture/mips_procedure.md)
+  
 
+  ### Docker
 
+  - [introduction](https://github.com/wonsoy/TIL/blob/master/Docker/introduction.md)
 
-### Docker
+  
 
-- [introduction](https://github.com/wonsoy/TIL/blob/master/Docker/introduction.md)
+  ### Linux
 
+  - [permissions](https://github.com/wonsoy/TIL/blob/master/Linux/permissions.md)
 
+  
 
-### Linux
+  ### Python
 
-- [permissions](https://github.com/wonsoy/TIL/blob/master/Linux/permissions.md)
+  - [escape_sequence](https://github.com/wonsoy/TIL/blob/master/Python/escape_sequence.md)
 
+  
 
+  ### etc
 
-### Python
+  - [html_basic][https://github.com/wonsoy/TIL/blob/master/etc/html%20basic.md]
 
-- [escape_sequence](https://github.com/wonsoy/TIL/blob/master/Python/escape_sequence.md)
-
-
-
-### etc
-
-- [html_basic][https://github.com/wonsoy/TIL/blob/master/etc/html%20basic.md]
+- [https://github.com/wonsoy/TIL/blob/master/etc/html%20basic.md]
