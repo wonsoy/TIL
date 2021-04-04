@@ -12,12 +12,12 @@
 
 #### Clean up
 
-| Command                                  | Description        |
-| ---------------------------------------- | ------------------ |
-| docker image rm {image ID}               | 이미지 삭제        |
-| docker image rm $(docker image ls -a -q) | 모든 이미지 삭제   |
-| docker image prune [-a]                  | 모든 이미지 삭제   |
-| docker stop $(docker ps -a -q)           | 모든 컨테이너 stop |
-| docker container prune                   | 모든 컨테이너 삭제 |
-| docker system prune                      | 모두 삭제          |
+| Command                                  | Description               |
+| ---------------------------------------- | ------------------------- |
+| docker image rm {image ID}               | 이미지 삭제               |
+| docker image rm $(docker image ls -a -q) | 모든 이미지 삭제          |
+| docker image prune [-a]                  | stop된 모든 이미지 삭제   |
+| docker stop $(docker ps -a -q)           | 모든 컨테이너 stop        |
+| docker container prune                   | stop된 모든 컨테이너 삭제 |
+| docker system prune                      | 모두 삭제                 |
 
