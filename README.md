@@ -1,8 +1,4 @@
-# TIL
-
-복습하는 습관을 들이기 위해 그날그날 새로 알게된 것을 자유롭게 기록합니다.
-
-
+# Study notes
 
 ### Computer Architecture
 
@@ -16,6 +12,7 @@
 
 - [introduction](https://github.com/wonsoy/TIL/blob/master/Docker/introduction.md)
 - [cheat_sheet](https://github.com/wonsoy/TIL/blob/master/Docker/cheat_sheet.md)
+- [Dockerfile](https://github.com/wonsoy/study_notes/blob/master/Docker/Dockerfile.md)
 
 
 
