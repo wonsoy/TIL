@@ -6,7 +6,9 @@
 | docker system info | 도커 실행환경                |
 | docker system df   | 도커가 쓰고 있는 디스크 공간 |
 | docker search      | 도커허브에서 검색            |
-| docker stats       | 컨테이너 상세 정도           |
+| docker stats       | 컨테이너 상세 정보           |
+
+
 
 
 
@@ -20,4 +22,15 @@
 | docker stop $(docker ps -a -q)           | 모든 컨테이너 stop        |
 | docker container prune                   | stop된 모든 컨테이너 삭제 |
 | docker system prune                      | 모두 삭제                 |
+
+
+
+
+
+#### Dockerfile
+
+| Command                                                      | Description                                                 |
+| ------------------------------------------------------------ | ----------------------------------------------------------- |
+| docker build -t {image name} .                               | Dockerfile을 빌드하여 image 생성 (현재 디렉토리에서)        |
+| docker run --name {container name} -d -p  4000:80 {image name} | image를 run하여 container 생성(포트 4000번을 80번으로 매핑) |
 
