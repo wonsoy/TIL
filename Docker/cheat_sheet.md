@@ -32,5 +32,31 @@
 | Command                                                      | Description                                                 |
 | ------------------------------------------------------------ | ----------------------------------------------------------- |
 | docker build -t {image name} .                               | Dockerfile을 빌드하여 image 생성 (현재 디렉토리에서)        |
+| docker build --no-cache -t {image name} .                    | 이전 기록을 캐싱하지 않도록 설정하여 빌드                   |
 | docker run --name {container name} -d -p  4000:80 {image name} | image를 run하여 container 생성(포트 4000번을 80번으로 매핑) |
+
+
+
+
+
+#### Docker Hub
+
+| Command                                          | Description                        |
+| ------------------------------------------------ | ---------------------------------- |
+| docker login                                     | 로그인                             |
+| docker tag {image} {username}/{repository}:{tag} | 업로드를 위해 이미지에 태그 붙이기 |
+| docker push {username}/{repository}:{tag}        | 레지스트리에 태그된 이미지 업로드  |
+| docker run {username}/{repository}:{tag}         | 레지스트리로부터 이미지 run        |
+
+
+
+
+
+#### docker-compose
+
+| Command              | Description          |
+| -------------------- | -------------------- |
+| docker-compose up    | 모든 서비스 시작     |
+| docker-compose down  | 모든 서비스 stop     |
+| docker-compose scale | 서비스의 스케일 조정 |
 
