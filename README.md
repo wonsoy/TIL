@@ -5,6 +5,7 @@
 - [mips_assembly_language](https://github.com/wonsoy/TIL/blob/master/Computer%20Architecture/mips_assembly_language.md)
 - [mips_instruction](https://github.com/wonsoy/TIL/blob/master/Computer%20Architecture/mips_instruction.md)
 - [mips_procedure](https://github.com/wonsoy/TIL/blob/master/Computer%20Architecture/mips_procedure.md)
+- [pipelining](https://github.com/wonsoy/study_notes/blob/master/Computer%20Architecture/pipelining.md)
 
 
 
