@@ -44,7 +44,7 @@
   - 해결법: Stall, Forwarding(이전 명령에서 값을 레지스터에 쓰기까지 기다리지 않고, ALU에서 계산이 끝나자마자 가져온다) 
 
   - Forwarding을 해도 데이터 해저드가 일어나는 경우도 있다. 하지만 forwarding을 하지 않는 것보다는 stall을 덜 할 수 있다. 
-  
+
   - Pipeline scheduling으로 명령의 순서를 바꿔 stall을 줄일 수 있다. 
 
 
@@ -57,7 +57,7 @@
 
 - PC에 대한 dependency때문에 발생한다고 할 수 있다. 
 
-- 해결법
+- 해결법(static, 컴파일 단계에서 해결)
 
   1. Stall
 
@@ -80,3 +80,28 @@
      
 
   
+
+- 해결법(dynamic, run time 단계에서 해결)
+
+  1. Last time prediction(single bit)
+
+       BTB(Branch Target Buffer)가 이전에 실행되었던 분기 명령의 target address를 기억한다. 만약 BTB에 target address가 없으면 분기 명령이 아니므로 다음 명령은 PC+4로 처리한다. 
+
+       이전에 분기가 일어났으면 이번에도 분기가 일어나고, 이전에 분기가 일어나지 않았으면 이번에도 분기가 일어나지 않을 것이라고 예측한다.
+
+       분기가 일어나는 경우와 일어나지 않는 경우가 번갈아가며 나타날 때는 정확도가 매우 낮아진다. 
+
+  2. Two-bit counter based prediction
+
+     예측이 두 번 연속으로 틀리면 예측을 바꾼다. 
+
+  3. Two-level prediction(global, local)
+
+     - Global: 분기 결과는 다른 분기의 결과에 영향을 받을 수 있다.
+
+     - Local: 분기의 결과는 같은 분기의 과거의 결과에 영향을 받을 수 있다.
+
+       - Level 1: GHR(Global History Register)에 이전 branch에서 분기가 일어났는지 여부를 기록한다. 
+
+       - Level 2: GHR값들을 기록한다(History of "the" GHR).
+
