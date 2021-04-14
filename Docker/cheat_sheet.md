@@ -60,3 +60,13 @@
 | docker-compose down  | 모든 서비스 stop     |
 | docker-compose scale | 서비스의 스케일 조정 |
 
+
+
+#### Docker storage
+
+| Command                     | Description      |
+| --------------------------- | ---------------- |
+| docker volume create {이름} | 볼륨 생성        |
+| docker volume prune {이름}  | 볼륨 삭제        |
+| docker volume ls            | 볼륨 리스트 보기 |
+
