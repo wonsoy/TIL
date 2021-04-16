@@ -15,6 +15,8 @@
 
 
 
+
+
 ## Pipeline Hazard
 
 ### Structural Hazard
@@ -31,6 +33,8 @@
 ### Data Hazard(Data Dependency)
 
 - 서로 다른 명령이 같은 저장공간을 사용하고자 하는 경우(명령이 아직 파이프라인에 있는 이전 명령에 대하여 dependency가 있는 경우)
+
+
 
 - Read After Write(RAW)
 
@@ -51,6 +55,8 @@
 
 
 
+
+
 ### Control Hazard
 
 - 다음 PC를 어떻게 결정할 것인가?(분기를 할 것인가 말 것인가). 
@@ -61,29 +67,36 @@
 
   1. Stall
 
-  2. Predict branch not taken: 
+  2. Predict Branch Not Taken: 
 
      ​	분기가 일어나지 않는다고 가정하고 다음 명령어들을 실행한다. 만약 분기가 일어나면 실행했던 명령들을 버리고(flush) Target address에서 명령을 실행한다. 
 
-  3. Predict branch taken:
+     
+
+  3. Predict Branch Taken:
 
      ​	 분기가 일어났다고 가정하고 분기 목적지에서 명령을 실행한다. 만약 분기가 일어나지 않으면 분기점의 다음 명령어들을 실행한다. 메모리 주소를 업데이트해야하므로 한 사이클정도 손해이다. 
 
-  4. Taken backwards, Not taken forwards:
+     
+
+  4. Taken Backwards, Not Taken Forwards:
 
      ​	Target address가 현재 위치의 뒤에 있으면 분기가 일어난다고 가정하고, 앞에 있으면 분기가 일어나지 않는다고 가정한다. 분기 목적지가 뒤에 있는 경우(e.g. for문, while문)는 분기가 일어날 확률이 높다는 것을 이용하는 방법이다. 
 
-  5. Delayed branch:
+     
+
+  5. Delayed Branch:
 
      ​	Pipeline scheduling과 비슷한 컨셉이다.  분기를 할 지 말 지 결정되는 동안 분기와 상관 없이 실행되어야 하는 명령어들이 실행되도록 명령어들의 위치를 조정한다.
 
      
 
-  
+
+
 
 - 해결법(dynamic, run time 단계에서 해결)
 
-  1. Last time prediction(single bit)
+  1. Last Time Prediction(single bit)
 
        BTB(Branch Target Buffer)가 이전에 실행되었던 분기 명령의 target address를 기억한다. 만약 BTB에 target address가 없으면 분기 명령이 아니므로 다음 명령은 PC+4로 처리한다. 
 
@@ -91,17 +104,56 @@
 
        분기가 일어나는 경우와 일어나지 않는 경우가 번갈아가며 나타날 때는 정확도가 매우 낮아진다. 
 
-  2. Two-bit counter based prediction
+       
+
+  2. Two Bit Counter Based Prediction
 
      예측이 두 번 연속으로 틀리면 예측을 바꾼다. 
 
-  3. Two-level prediction(global, local)
+     
 
-     - Global: 분기 결과는 다른 분기의 결과에 영향을 받을 수 있다.
+  3. Two Level Prediction(Global, Local)
+
+     - Global: 분기 결과가 다른 분기의 결과에 영향을 주는 경우가 있다. 이 경우, 현재 분기의 발생 여부에 따라 다른 분기가 일어날 것인지 일어나지 않을것인지 예측할 수 있다. 
+
+     ```
+     branch Y: if (cond1)
+     ...
+     branch Z: if (cond2)
+     ...
+     branch X: if (cond1 AND cond2)
+     ```
 
      - Local: 분기의 결과는 같은 분기의 과거의 결과에 영향을 받을 수 있다.
 
-       - Level 1: GHR(Global History Register)에 이전 branch에서 분기가 일어났는지 여부를 기록한다. 
+     ```
+     for(i=1;i<=4;i++){}
+     ```
 
-       - Level 2: GHR값들을 기록한다(History of "the" GHR).
+     
+
+     - Two Level *Global* Branch Prediction
+       - Level 1: GHR(Global History Register)에 이전 branch에서의 분기 결과를 저장한다. 
+       - Level 2: 이전의 GHR값들을  Pattern History Table에 기록한다(History of "the" GHR).
+
+       
+
+       - 문제점: interference in the PHTs - 서로 다른 분기가 동일한 history register에 값를 기록하면 문제가 될 수 있다. 
+
+         - Gshare: Global branch history와 branch PC를 XOR연산하여 테이블에 기록하는 방법이다. 
+         - Gskew: 여러 PHT를 사용하여 각각 다른 hash function을 적용한다. 그리고 가장 많이 나온 prediction을 채택하는 방법이다. 
+
+         
+
+     - Two Level *Local* Branch Prediction(per-branch history register). 
+
+       - Level 1: 하나의 분기에 대해 history register를 만든다.  
+
+       - Level 2: PHT에 접근하여 예측 결과를 가져온다.  
+
+         
+
+       
+
+
 
