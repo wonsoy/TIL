@@ -67,31 +67,39 @@
 
   1. Stall
 
-  2. Predict Branch Not Taken: 
+  2. Predict Branch Not Taken
 
      ​	분기가 일어나지 않는다고 가정하고 다음 명령어들을 실행한다. 만약 분기가 일어나면 실행했던 명령들을 버리고(flush) Target address에서 명령을 실행한다. 
 
      
 
-  3. Predict Branch Taken:
+  3. Predict Branch Taken
 
      ​	 분기가 일어났다고 가정하고 분기 목적지에서 명령을 실행한다. 만약 분기가 일어나지 않으면 분기점의 다음 명령어들을 실행한다. 메모리 주소를 업데이트해야하므로 한 사이클정도 손해이다. 
 
      
 
-  4. Taken Backwards, Not Taken Forwards:
+  4. Taken Backwards, Not Taken Forwards
 
      ​	Target address가 현재 위치의 뒤에 있으면 분기가 일어난다고 가정하고, 앞에 있으면 분기가 일어나지 않는다고 가정한다. 분기 목적지가 뒤에 있는 경우(e.g. for문, while문)는 분기가 일어날 확률이 높다는 것을 이용하는 방법이다. 
 
      
 
-  5. Delayed Branch:
+  5. Delayed Branch
 
-     ​	Pipeline scheduling과 비슷한 컨셉이다.  분기를 할 지 말 지 결정되는 동안 분기와 상관 없이 실행되어야 하는 명령어들이 실행되도록 명령어들의 위치를 조정한다.
+     ​	Pipeline scheduling과 비슷한 컨셉이다.  분기를 할 지 말 지 결정되는 동안 분기와 상관 없이 실행되어야 하는 명령어들이 실행되도록 명령어들의 위치를 조정한다. 
 
      
-
-
+     
+  6. Predicated Execution
+  
+     Control dependence를 data dependence로 바꾼다. 분기를 없애고 명령어들의 sequence로 문제를 바꾼다. 분기 결과에 따라 필요없어진 명령은 NOP처리한다. 예측하기 어려운 분기들을 제거하지만 모든 분기를 predecation으로 제거하기는 힘들다. 
+  
+     예측이 틀릴 경우 발생하는 손해가 predication에 의해 낭비되는 작업보다 클 경우 predication이 이득이다. 
+  
+     ex) ARM ISA의 Conditional execution: 거의 모든 ARM 명령어들은 condition code를 포함한다.  조건의 결과에 따라 뒤의 명령어들의 처리가 결정되는 구조이다. 
+  
+     
 
 
 - 해결법(dynamic, run time 단계에서 해결)
@@ -148,12 +156,41 @@
      - Two Level *Local* Branch Prediction(per-branch history register). 
 
        - Level 1: 하나의 분기에 대해 history register를 만든다.  
-
        - Level 2: PHT에 접근하여 예측 결과를 가져온다.  
 
-         
-
-       
 
 
+  4. Loop Unrolling
 
+     Loop안에서 코드들을 여러번 복제한다. Loop overhead가 줄어들고 Control dependence가 줄어들어 프로그램 효율이 향상된다.  더 많은 레지스터가 필요하다. 
+
+     
+
+     ```
+     for (int i=0; i<16; i++)
+     data[i] = i;
+     ```
+
+     ​			↓
+
+     ```
+     for (int i=0; i<16; i+=4)
+     {
+     data[i]=i;
+     data[i+1]=i+1;
+     data[i+2]=i+2;
+     data[i+3]=i+3;
+     }
+     ```
+
+     위의 경우, 
+
+     Number of copies = Loop unrolling factor = 4
+
+     Number of iteration = 16/4 = 4 
+
+     이다. 
+
+     
+
+     
