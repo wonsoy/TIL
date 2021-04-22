@@ -50,10 +50,8 @@
   - Forwarding을 해도 데이터 해저드가 일어나는 경우도 있다. 하지만 forwarding을 하지 않는 것보다는 stall을 덜 할 수 있다. 
 
   - Pipeline scheduling으로 명령의 순서를 바꿔 stall을 줄일 수 있다. 
-
-
-
-
+  
+    
 
 
 
@@ -93,7 +91,7 @@
      
   6. Predicated Execution
   
-     Control dependence를 data dependence로 바꾼다. 분기를 없애고 명령어들의 sequence로 문제를 바꾼다. 분기 결과에 따라 필요없어진 명령은 NOP처리한다. 예측하기 어려운 분기들을 제거하지만 모든 분기를 predecation으로 제거하기는 힘들다. 
+     Control dependence를 data dependence로 바꾼다. 분기를 없애고 명령어들의 sequence로 문제를 바꾼다. 다음 PC를 항상 PC+4로 처리하는 것이다. 분기 결과에 따라 필요없어진 명령은 NOP처리한다. 예측하기 어려운 분기들을 제거하지만 모든 분기를 predecation으로 제거하기는 힘들다. 
   
      예측이 틀릴 경우 발생하는 손해가 predication에 의해 낭비되는 작업보다 클 경우 predication이 이득이다. 
   
@@ -122,7 +120,7 @@
 
   3. Two Level Prediction(Global, Local)
 
-     - Global: 분기 결과가 다른 분기의 결과에 영향을 주는 경우가 있다. 이 경우, 현재 분기의 발생 여부에 따라 다른 분기가 일어날 것인지 일어나지 않을것인지 예측할 수 있다. 
+     - Global branch correlation: 분기 결과가 다른 분기의 결과에 영향을 주는 경우가 있다. 이 경우, 현재 분기의 발생 여부에 따라 다른 분기가 일어날 것인지 일어나지 않을것인지 예측할 수 있다. 
 
      ```
      branch Y: if (cond1)
@@ -132,7 +130,7 @@
      branch X: if (cond1 AND cond2)
      ```
 
-     - Local: 분기의 결과는 같은 분기의 과거의 결과에 영향을 받을 수 있다.
+     - Local branch correlation: 분기의 결과는 같은 분기의 과거의 결과에 영향을 받을 수 있다.
 
      ```
      for(i=1;i<=4;i++){}
@@ -191,6 +189,31 @@
 
      이다. 
 
-     
 
-     
+
+
+- 예제
+
+  N=20, W=5이고 처리할 명령어 수는 500개일 때 (N: pipe stage수, W: 한 사이클 당 명령의 수)
+
+  1. Prediction accurary: 100% 
+
+     500/5 = 100 cycles(all correct path)
+
+  2. Prediction accuracy: 99%
+
+     100(correct path) + 20(wrong path) = 120 cycles
+
+     20%의 명령어를 추가적으로 fetch해야 한다. 
+
+  3. Prediction accuracy: 98%
+
+     100(correct path) + 20*2(wrong path) = 140 cycles
+
+     40%의 명령어를 추가적으로 fetch해야 한다. 
+
+  4. Prediction accuracy: 95%
+
+     100(correct path) + 20*5(wrong path) = 200 cycles
+
+     100%의 명령어를 추가적으로 fetch해야 한다. 
