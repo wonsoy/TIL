@@ -65,7 +65,7 @@ pop: 스택에서 데이터 빼기
 
 
 
-### Example
+### Example 1
 
 ------
 
@@ -84,7 +84,7 @@ int leaf_example(int g, int h, int i, ing j)
 
 ```jsx
 leaf_example:
-  addi $sp, $sp, 12    # 스택에 세 워드를 저장할 자리를 만들기위해 스택 포인터를 내림
+  addi $sp, $sp, -12    # 스택에 세 워드를 저장할 자리를 만들기위해 스택 포인터를 내림
 		               # 아래 세 줄에서는 이 공간에 세 레지스터를 각각 저장
   sw   $t1, 8($sp)     # $t1을 스택 [$sp + 8]에 저장
   sw   $t0, 4($sp)     # $t0를 스택 [$sp + 4]에 저장
@@ -104,3 +104,46 @@ leaf_example:
 ```
 
 메모리, 레지스터에 값을 저장했다 복구하는 과정이 https://youtu.be/gbHagOGOfLc 에 비슷한 예제를 통해 잘 설명되어 있다!
+
+
+
+### Example2
+
+------------------------
+
+```
+int fact(int n)
+{
+	if (n < 1) return (1);
+		else return (n * fact(n-1));
+}
+```
+
+인수 n은 레지스터 $s0에 해당한다. 
+
+caller는 $ra와 $s0를 스택에 저장하고, temp register $t0은 저장하지 않는다. 
+
+위 프로그램을 어셈블리 코드로 변환하면
+
+```
+fact:
+	slti 	$t0, $a0, 1		# $n < 1이면 $t0 = 1, 아니면 $t0 = 0
+	beq 	$t0, $zero, L1  # $t0이 제로면(n>=1이면), go to L1
+	addi 	$v0, $zero, 1	# V0 = 1
+	jr 		$ra				# return to caller
+L1:
+	addi 	$sp, $sp, -8	# 스택에 두 워드를 저장할 자리를 만들기 위해 포인터를 내림
+	sw 		$ra, 4($sp)		# $ra를 [$sp+4]에 저장
+	sw 		$s0, 0($sp)		# $s0를 [$sp]에 저장
+	
+	addi 	$a0, $a0, -1	# n >= 1이면 인수가 n-1이 됨
+	jal 	fact			# 인수 (n-1)을 가지고 fact를 호출
+	
+	lw 		$s0, 0($sp)		# $s0 복구
+	lw 		$ra, 4($sp)		# $ra 복구
+	addi 	$sp, $sp, 8		# 스택 포인터를 되돌려놓음
+	
+	mul 	$v0, $s0, $v0	# return n*fact(n-1)
+	jr		$ra				# return to caller
+```
+
